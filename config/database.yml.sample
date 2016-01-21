@@ -1,0 +1,16 @@
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/aurso_development.sqlite3
+
+test:
+  <<: *default
+  database: db/aurso_test.sqlite3
+
+production:
+  <<: *default
+  database: db/aurso_production.sqlite3
