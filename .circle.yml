@@ -1,0 +1,13 @@
+machine:
+  ruby:
+    version: 2.2.2
+database:
+  override:
+    - mv config/database.ci.yml config/database.yml
+    - bundle exec rake db:create db:migrate --trace
+test:
+  pre:
+    - chmod +x scripts/checker.sh
+    - scripts/checker.sh
+  override:
+    - bundle exec rspec spec --format progress
