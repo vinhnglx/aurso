@@ -19,4 +19,7 @@ class Organization < ActiveRecord::Base
   validates :name, :public_name, presence: true
   validates :type, inclusion: { in: TYPES, message: 'Type must be Show room, Service or Dealer.' }
   validates :pricing_policy, inclusion: { in: PRICING_POLICIES, message: 'Pricing policy must be Flexible, Fixed or Prestige.' }
+
+  # Relations
+  has_many :cars
 end
