@@ -12,8 +12,8 @@
 #
 
 class Organization < ActiveRecord::Base
-  TYPES = ['Show room', 'Service', 'Dealer']
-  PRICING_POLICIES = ['Flexible', 'Fixed', 'Prestige']
+  TYPES = ['Show room', 'Service', 'Dealer'].freeze
+  PRICING_POLICIES = ['Flexible', 'Fixed', 'Prestige'].freeze
 
   # Validations
   validates :name, :public_name, presence: true
