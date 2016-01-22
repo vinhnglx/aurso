@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122120735) do
+ActiveRecord::Schema.define(version: 20160122173601) do
+
+  create_table "api_tokens", force: :cascade do |t|
+    t.string   "access_token"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "car_types", force: :cascade do |t|
     t.string   "name"
