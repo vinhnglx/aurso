@@ -37,6 +37,10 @@ RSpec.describe CarType, type: :model do
     end
   end
 
+  context 'indexes' do
+    it { should have_db_index(:car_id).unique(true) }
+  end
+
   context 'validations' do
     it { should validate_presence_of :name }
     it { should validate_presence_of :car_type_slug }
