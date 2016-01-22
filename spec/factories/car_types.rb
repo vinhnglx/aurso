@@ -21,5 +21,4 @@ FactoryGirl.define do
 
     car
   end
-
 end
