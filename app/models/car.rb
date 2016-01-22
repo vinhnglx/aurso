@@ -16,4 +16,5 @@ class Car < ActiveRecord::Base
 
   # Relations
   belongs_to :organization
+  has_many :car_types
 end
