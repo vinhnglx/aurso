@@ -17,4 +17,8 @@ class Car < ActiveRecord::Base
   # Relations
   belongs_to :organization
   has_many :car_types
+
+  # FriendlyId
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 end
