@@ -14,5 +14,7 @@ FactoryGirl.define do
   factory :car do
     name 'BMW'
     car_slug 'serie_3'
+
+    organization
   end
 end
