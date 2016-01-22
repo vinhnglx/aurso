@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20160122173601) do
 
   create_table "cars", force: :cascade do |t|
     t.string   "name"
-    t.string   "car_slug"
+    t.string   "slug"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "organization_id"

@@ -4,7 +4,7 @@
 #
 #  id              :integer          not null, primary key
 #  name            :string
-#  car_slug        :string
+#  slug            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  organization_id :integer
@@ -20,8 +20,8 @@ RSpec.describe Car, type: :model do
     end
 
     it 'has car_slug' do
-      car = build(:car, car_slug: 'F015')
-      expect(car).to have_attributes(car_slug: 'F015')
+      car = build(:car, slug: 'f015')
+      expect(car).to have_attributes(slug: 'f015')
     end
   end
 
@@ -31,7 +31,6 @@ RSpec.describe Car, type: :model do
 
   context 'validations' do
     it { should validate_presence_of :name }
-    it { should validate_presence_of :car_slug }
   end
 
   context 'relations' do
