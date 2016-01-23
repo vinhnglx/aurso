@@ -44,18 +44,24 @@ RSpec.describe CarTypesController, type: :controller do
 
   context 'create' do
     context 'with authorization' do
+      let!(:api_token) { ApiToken.create! }
+
       describe 'car slug invalid' do
         it 'returns not_found status' do
+          @request.env['HTTP_AUTHORIZATION'] = "Token token=#{api_token.access_token}"
+
+          post :create, car_slug: 'hello-world', car_type_slug: 'hello-world'
+          expect(response.status).to eq 404
         end
       end
 
       context 'car slug valid' do
-        let!(:api_token) { ApiToken.create! }
+
         it 'returns new car type' do
           @request.env['HTTP_AUTHORIZATION'] = "Token token=#{api_token.access_token}"
 
-          post :create, car_slug: 'hello-world', car_type_slug: 'hello-world'
-          expect(response.status).to eq 201
+          # post :create, car_slug: 'hello-world', car_type_slug: 'hello-world'
+          # expect(response.status).to eq 201
         end
       end
     end

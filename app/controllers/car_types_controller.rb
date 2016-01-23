@@ -19,7 +19,7 @@ class CarTypesController < ApplicationController
   before_filter :restrict_access, only: :create
 
   def index
-    cars = load_car(car_params[:car_slug])
+    cars = load_cars(car_params[:car_slug])
 
     return respond_404 if cars.blank?
 
@@ -29,6 +29,8 @@ class CarTypesController < ApplicationController
   end
 
   def create
+    car = load_car(car_params[:car_slug])
+    return respond_404 if car.nil?
     head :created
   end
 
