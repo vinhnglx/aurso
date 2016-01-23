@@ -16,6 +16,7 @@ class CarTypesController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
   include ::Car::Finder
   include ::Car::Parameter
+  include ::CarType::Parameter
   before_filter :restrict_access, only: :create
 
   def index
@@ -31,7 +32,9 @@ class CarTypesController < ApplicationController
   def create
     car = load_car(car_params[:car_slug])
     return respond_404 if car.nil?
-    head :created
+
+    car_type = car.car_types.create!(car_type_params)
+    render json: CarTypeSerializer.new(car_type), root: :car_type, status: :created
   end
 
   private
