@@ -17,8 +17,4 @@ RSpec.describe ApiToken, type: :model do
       expect(api_token).to have_attributes(access_token: 'S3cur3Rad0mdothex')
     end
   end
-
-  context 'validates' do
-    it { should validate_presence_of :access_token }
-  end
 end

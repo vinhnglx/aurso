@@ -19,7 +19,7 @@ class CarType < ActiveRecord::Base
   PRESTIGE_URL = 'http://www.yourlocalguardian.co.uk/sport/rugby/rss/'.freeze
 
   # Validations
-  validates :name, :car_type_code, :car_type_slug, :base_price, presence: true
+  validates :name, :car_type_slug, :base_price, presence: true
 
   # Relations
   belongs_to :car
@@ -50,12 +50,14 @@ class CarType < ActiveRecord::Base
   #
   # Returns the Integer
   def total_price
-    calculate(pricing_policy)
+    calculate(pricing_policy).round
   end
 
   private
 
-    # Calculate total price base on policy and base price
+    # Private: Calculate total price base on policy and base price
+    #
+    # policy  - pricing policy
     #
     # Examples
     #
@@ -64,13 +66,29 @@ class CarType < ActiveRecord::Base
     #
     # Returns the Integer
     def calculate(policy)
-      case pricing_policy
+      case policy
       when 'Flexible'
-        base_price * (Appearance.new(FLEXIBLE_URL).letter_frequency('a').to_f / 100)
+        base_price * margin(policy)
       when 'Fixed'
-        base_price + Appearance.new(FIXED_URL).word_frequency('status')
+        base_price + margin(policy)
       when 'Prestige'
-        base_price + Appearance.new(PRESTIGE_URL).element_frequency('pubDate')
+        base_price + margin(policy)
       end
+    end
+
+    # Private: Calculate margin
+    #
+    # policy  - pricing policy
+    #
+    # Examples
+    #
+    #   margin('Flexible')
+    #   # => 9
+    #
+    # Returns the Integer
+    def margin(policy)
+      return (Appearance.new(FLEXIBLE_URL).letter_frequency('a').to_f / 100) if policy == 'Flexible'
+      return Appearance.new(FIXED_URL).word_frequency('status') if policy == 'Fixed'
+      return Appearance.new(PRESTIGE_URL).element_frequency('pubDate') if policy == 'Prestige'
     end
 end
