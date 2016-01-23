@@ -14,9 +14,9 @@
 
 class CarType < ActiveRecord::Base
   # Constants
-  FLEXIBLE_URL = 'http://reuters.com'
-  FIXED_URL = 'https://developer.github.com/v3/#http-redirects'
-  PRESTIGE_URL = 'http://www.yourlocalguardian.co.uk/sport/rugby/rss/'
+  FLEXIBLE_URL = 'http://reuters.com'.freeze
+  FIXED_URL = 'https://developer.github.com/v3/#http-redirects'.freeze
+  PRESTIGE_URL = 'http://www.yourlocalguardian.co.uk/sport/rugby/rss/'.freeze
 
   # Validations
   validates :name, :car_type_code, :car_type_slug, :base_price, presence: true
