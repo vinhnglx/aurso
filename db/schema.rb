@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20160122173601) do
     t.integer  "car_id"
   end
 
-  add_index "car_types", ["car_id"], name: "index_car_types_on_car_id", unique: true
+  add_index "car_types", ["car_id"], name: "index_car_types_on_car_id"
 
   create_table "cars", force: :cascade do |t|
     t.string   "name"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20160122173601) do
     t.integer  "organization_id"
   end
 
-  add_index "cars", ["organization_id"], name: "index_cars_on_organization_id", unique: true
+  add_index "cars", ["organization_id"], name: "index_cars_on_organization_id"
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
