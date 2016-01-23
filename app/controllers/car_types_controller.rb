@@ -13,8 +13,17 @@
 #
 
 class CarTypesController < ApplicationController
+  include ::Car::Finder
+  include ::Car::Parameter
+
   def index
-    head :ok
+    cars = load_car(car_params[:car_slug])
+
+    return respond_404 if cars.blank?
+
+    render json: {
+      cars: ActiveModel::ArraySerializer.new(cars, each_serializer: ::CarSerializer)
+    }
   end
 
   def create

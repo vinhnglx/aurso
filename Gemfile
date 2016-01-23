@@ -11,6 +11,9 @@ gem 'sqlite3'
 ##### Environment Variable #####
 gem 'figaro'
 
+##### JSON generation #####
+gem 'active_model_serializers'
+
 ##### Coding Style #####
 gem 'brakeman'
 gem 'bullet'
