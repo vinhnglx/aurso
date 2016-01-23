@@ -95,6 +95,5 @@ RSpec.describe CarType, type: :model do
         expect(car_type.total_price).to eq 100_004
       end
     end
-
   end
 end
