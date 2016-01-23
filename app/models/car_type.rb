@@ -19,7 +19,7 @@ class CarType < ActiveRecord::Base
   PRESTIGE_URL = 'http://www.yourlocalguardian.co.uk/sport/rugby/rss/'.freeze
 
   # Validations
-  validates :name, :car_type_code, :car_type_slug, :base_price, presence: true
+  validates :name, :car_type_slug, :base_price, presence: true
 
   # Relations
   belongs_to :car
