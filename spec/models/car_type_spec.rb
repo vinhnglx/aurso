@@ -15,6 +15,8 @@
 require 'rails_helper'
 
 RSpec.describe CarType, type: :model do
+  include_context 'appearances'
+
   context 'attributes' do
     it 'has name' do
       car_type = build(:car_type, name: 'F102')
@@ -50,5 +52,48 @@ RSpec.describe CarType, type: :model do
 
   context 'relations' do
     it { should belong_to :car }
+  end
+
+  context 'delegations' do
+    let(:organization) { create(:organization, pricing_policy: 'Flexible') }
+    let(:car) { create(:car, organization: organization) }
+    let(:car_type) { create(:car_type, car: car) }
+
+    it 'returns the pricing_policy' do
+      expect(car_type.pricing_policy).to eq('Flexible')
+    end
+  end
+
+  context 'total price' do
+    let(:org_flex) { create(:organization, pricing_policy: 'Flexible') }
+    let(:org_fixed) { create(:organization, pricing_policy: 'Fixed') }
+    let(:org_pres) { create(:organization, pricing_policy: 'Prestige') }
+
+    context 'Pricing Logic: Flexible' do
+      let(:car) { create(:car, organization: org_flex) }
+      let(:car_type) { create(:car_type, car: car, base_price: 100_000) }
+
+      it 'returns total price = base_price * margin' do
+        expect(car_type.total_price).to eq 400_000.0
+      end
+    end
+
+    context 'Pricing Logic: Fixed' do
+      let(:car) { create(:car, organization: org_fixed) }
+      let(:car_type) { create(:car_type, car: car, base_price: 100_000) }
+
+      it 'returns total price = base_price + margin' do
+        expect(car_type.total_price).to eq 100_020
+      end
+    end
+
+    context 'Pricing Logic: Prestige' do
+      let(:car) { create(:car, organization: org_pres) }
+      let(:car_type) { create(:car_type, car: car, base_price: 100_000) }
+
+      it 'returns total price = base_price + margin' do
+        expect(car_type.total_price).to eq 100_004
+      end
+    end
   end
 end

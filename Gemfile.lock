@@ -65,6 +65,8 @@ GEM
     coderay (1.1.0)
     colored (1.2)
     concurrent-ruby (1.0.0)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     database_cleaner (1.5.1)
     diff-lcs (1.2.5)
     env_branch (0.2.1)
@@ -87,6 +89,7 @@ GEM
       activesupport (>= 4.1.0)
     haml (4.0.7)
       tilt
+    hashdiff (0.2.3)
     highline (1.7.8)
     i18n (0.7.0)
     json (1.8.3)
@@ -230,6 +233,10 @@ GEM
       thread_safe (~> 0.1)
     uniform_notifier (1.9.0)
     uri-ssh_git (2.0.0)
+    webmock (1.22.6)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
 
 PLATFORMS
   ruby
@@ -253,6 +260,7 @@ DEPENDENCIES
   shoulda-matchers
   spring
   sqlite3
+  webmock
 
 BUNDLED WITH
    1.11.2

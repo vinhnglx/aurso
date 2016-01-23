@@ -38,4 +38,13 @@ RSpec.describe Car, type: :model do
     it { should belong_to(:organization) }
     it { should have_many(:car_types) }
   end
+
+  context 'delegations' do
+    let(:organization) { create(:organization, pricing_policy: 'Flexible') }
+    let(:car) { create(:car, organization: organization) }
+
+    it 'returns the pricing_policy' do
+      expect(car.pricing_policy).to eq('Flexible')
+    end
+  end
 end
