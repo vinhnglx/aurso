@@ -15,15 +15,29 @@
 require 'rails_helper'
 
 RSpec.describe CarTypesController, type: :controller do
+  include_context 'appearances'
+
   context 'index' do
     describe 'car slug invalid' do
-      it 'returns not_found status'
+      it 'returns not_found status' do
+        get :index, car_slug: 'mercedes-not-found'
+        expect(response.status).to eq 404
+      end
     end
 
     describe 'car slug valid' do
+      let!(:organization) { create(:organization, pricing_policy: 'Fixed') }
+      let!(:car) { create(:car, organization: organization) }
+      let!(:car_type) { create(:car_type, car: car, base_price: 200_000) }
+
       it 'returns list of cars types' do
-        get :index, car_slug: 'hello-world'
+        get :index, car_slug: car.car_slug
+        res = JSON.parse(response.body)
+
         expect(response.status).to eq 200
+
+        expect(res['cars'][0]['name']).to eq car.name
+        expect(res['cars'][0]['car_types'][0]['total_price']).to eq 200_020
       end
     end
   end
