@@ -60,9 +60,9 @@ class Appearance
   # Returns the Hash
   def occurrences
     Hash[
-      inner_word.scan(/\w+/).group_by(&:downcase).map { |wrd,inst|
-        [wrd,inst.length]
-      }.sort_by(&:last).reverse
+      inner_word.scan(/\w+/).group_by(&:downcase).map do |wrd, inst|
+        [wrd, inst.length]
+      end.sort_by(&:last).reverse
     ]
   end
 
