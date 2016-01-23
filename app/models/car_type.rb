@@ -50,7 +50,7 @@ class CarType < ActiveRecord::Base
   #
   # Returns the Integer
   def total_price
-    calculate(pricing_policy)
+    calculate(pricing_policy).round
   end
 
   private
