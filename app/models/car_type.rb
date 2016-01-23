@@ -37,7 +37,7 @@ class CarType < ActiveRecord::Base
   #
   # Returns one of pricing policies
   def pricing_policy
-    car.organization.pricing_policy
+    car.pricing_policy
   end
 
   # Display total_price of a car type
