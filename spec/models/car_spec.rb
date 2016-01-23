@@ -26,7 +26,7 @@ RSpec.describe Car, type: :model do
   end
 
   context 'indexes' do
-    it { should have_db_index(:organization_id).unique(true) }
+    it { should have_db_index(:organization_id) }
   end
 
   context 'validations' do
