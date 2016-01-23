@@ -18,4 +18,11 @@ class CarType < ActiveRecord::Base
 
   # Relations
   belongs_to :car
+
+  # Delegations
+  delegate :pricing_policy, to: :pricing_policy, prefix: true, allow_nil: true
+
+  def pricing_policy
+    car.organization.pricing_policy
+  end
 end
