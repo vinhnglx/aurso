@@ -5,7 +5,7 @@
 #  id             :integer          not null, primary key
 #  name           :string
 #  public_name    :string
-#  type           :string
+#  org_type       :string
 #  pricing_policy :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
@@ -25,11 +25,11 @@ RSpec.describe Organization, type: :model do
       expect(organization).to have_attributes(public_name: 'Silver Bullet')
     end
 
-    it 'has type' do
+    it 'has org_type' do
       type = ['Show room', 'Service', 'Dealer'].sample
 
-      organization = build(:organization, type: type)
-      expect(organization).to have_attributes(type: type)
+      organization = build(:organization, org_type: type)
+      expect(organization).to have_attributes(org_type: type)
     end
 
     it 'has pricing_policy' do
@@ -49,7 +49,7 @@ RSpec.describe Organization, type: :model do
     it { should validate_presence_of :public_name }
 
     it do
-      should validate_inclusion_of(:type).in_array(types).with_message('Type must be Show room, Service or Dealer.')
+      should validate_inclusion_of(:org_type).in_array(types).with_message('Type must be Show room, Service or Dealer.')
     end
 
     it do
