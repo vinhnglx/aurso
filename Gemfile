@@ -11,9 +11,6 @@ gem 'sqlite3'
 ##### Environment Variable #####
 gem 'figaro'
 
-##### Friendly URL #####
-gem 'friendly_id', '~> 5.1.0'
-
 ##### Coding Style #####
 gem 'brakeman'
 gem 'bullet'
