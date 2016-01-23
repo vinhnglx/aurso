@@ -93,7 +93,7 @@ class Appearance
     #
     # Returns the String
     def inner_word
-      html_content = Rails.cache.fetch("html", :expires_in => 1.day) do
+      html_content = Rails.cache.fetch('html', expires_in: 1.day) do
         open(url).read
       end
       html = Nokogiri::HTML(html_content)
@@ -113,7 +113,7 @@ class Appearance
     #
     # Returns Nokogiri::XML object
     def rss_feed
-      xml = Rails.cache.fetch("xml", :expires_in => 1.day) do
+      xml = Rails.cache.fetch('xml', expires_in: 1.day) do
         open(url).read
       end
 
