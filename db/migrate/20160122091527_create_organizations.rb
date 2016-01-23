@@ -3,7 +3,7 @@ class CreateOrganizations < ActiveRecord::Migration
     create_table :organizations do |t|
       t.string :name
       t.string :public_name
-      t.string :type
+      t.string :org_type
       t.string :pricing_policy
 
       t.timestamps null: false
