@@ -93,7 +93,10 @@ class Appearance
     #
     # Returns the String
     def inner_word
-      html = Nokogiri::HTML(open(url))
+      html_content = Rails.cache.fetch("html", :expires_in => 1.day) do
+        open(url).read
+      end
+      html = Nokogiri::HTML(html_content)
 
       # Remove unnecessary tags
       UNNECESSARY_TAGS.each { |tag| html.css(tag).remove }
@@ -110,6 +113,10 @@ class Appearance
     #
     # Returns Nokogiri::XML object
     def rss_feed
-      Nokogiri::XML(open(url))
+      xml = Rails.cache.fetch("xml", :expires_in => 1.day) do
+        open(url).read
+      end
+
+      Nokogiri::XML(xml)
     end
 end
