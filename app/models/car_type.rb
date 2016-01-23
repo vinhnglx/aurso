@@ -50,7 +50,7 @@ class CarType < ActiveRecord::Base
   #
   # Returns the Integer
   def total_price
-    calculate(pricing_policy).round(2)
+    calculate(pricing_policy)
   end
 
   private
@@ -68,11 +68,11 @@ class CarType < ActiveRecord::Base
     def calculate(policy)
       case policy
       when 'Flexible'
-        base_price * Rails.cache.fetch(:listings) { margin(policy) }
+        base_price * margin(policy)
       when 'Fixed'
-        base_price + Rails.cache.fetch(:listings) { margin(policy) }
+        base_price + margin(policy)
       when 'Prestige'
-        base_price + Rails.cache.fetch(:listings) { margin(policy) }
+        base_price + margin(policy)
       end
     end
 
