@@ -13,19 +13,12 @@
 #
 
 class CarType < ActiveRecord::Base
-  # Constants
-  FLEXIBLE_URL = 'http://reuters.com'.freeze
-  FIXED_URL = 'https://developer.github.com/v3/#http-redirects'.freeze
-  PRESTIGE_URL = 'http://www.yourlocalguardian.co.uk/sport/rugby/rss/'.freeze
-
   # Validations
-  validates :name, :car_type_slug, :base_price, presence: true
+  validates :car_type_slug, :base_price, presence: true
+  validates :name, uniqueness: true, presence: true
 
   # Relations
   belongs_to :car
-
-  # Delegations
-  delegate :pricing_policy, to: :pricing_policy, prefix: true, allow_nil: true
 
   # Get pricing_policy from organization
   #
@@ -50,7 +43,8 @@ class CarType < ActiveRecord::Base
   #
   # Returns the Integer
   def total_price
-    calculate(pricing_policy).round
+    mrg = margin(pricing_policy)
+    calculate(pricing_policy, mrg).round
   end
 
   private
@@ -65,14 +59,14 @@ class CarType < ActiveRecord::Base
     #   # => 329093
     #
     # Returns the Integer
-    def calculate(policy)
+    def calculate(policy, mrg)
       case policy
       when 'Flexible'
-        base_price * margin(policy)
+        base_price * mrg
       when 'Fixed'
-        base_price + margin(policy)
+        base_price + mrg
       when 'Prestige'
-        base_price + margin(policy)
+        base_price + mrg
       end
     end
 
@@ -87,8 +81,8 @@ class CarType < ActiveRecord::Base
     #
     # Returns the Integer
     def margin(policy)
-      return (Appearance.new(FLEXIBLE_URL).letter_frequency('a').to_f / 100) if policy == 'Flexible'
-      return Appearance.new(FIXED_URL).word_frequency('status') if policy == 'Fixed'
-      return Appearance.new(PRESTIGE_URL).element_frequency('pubDate') if policy == 'Prestige'
+      return Appearance.new(ENV['FLEXIBLE_URL']).letter_frequency('a').to_f / 100 if policy == 'Flexible'
+      return Appearance.new(ENV['FIXED_URL']).word_frequency('status') if policy == 'Fixed'
+      return Appearance.new(ENV['PRESTIGE_URL']).element_frequency('pubDate') if policy == 'Prestige'
     end
 end

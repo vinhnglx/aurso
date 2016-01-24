@@ -1,18 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Appearance do
-  let(:web_page) { File.new('spec/fixtures/example.html') }
-  let(:rss_page) { File.new('spec/fixtures/rss_example.xml') }
+  include_context 'appearances_contents'
 
-  let(:wrong_web_page) { File.new('spec/fixtures/wrong_example.html') }
-  let(:wrong_rss_page) { File.new('spec/fixtures/wrong_rss_example.html') }
-
-  let(:web) { Appearance.new(web_page) }
-  let(:rss) { Appearance.new(rss_page) }
+  let(:web) { Appearance.new('hello.com') }
+  let(:rss) { Appearance.new('rss.com') }
+  let(:fail_url) { Appearance.new('fail.com') }
 
   context '.new' do
     it 'returns a new Appearance object' do
-      expect(web.url).to eq web_page
+      expect(web.url).to eq 'hello.com'
+      expect(rss.url).to eq 'rss.com'
     end
   end
 
@@ -27,10 +25,10 @@ RSpec.describe Appearance do
       expect(word).to be_nil
     end
 
-    it 'raises an error if the url is wrong' do
+    it 'raises NoMethodError if the url is wrong' do
       expect do
-        Appearance.new(wrong_web_page).word_frequency('test')
-      end.to raise_error 'No such file or directory @ rb_sysopen - spec/fixtures/wrong_example.html'
+        fail_url.word_frequency('test')
+      end.to raise_error(NoMethodError)
     end
   end
 
@@ -45,10 +43,10 @@ RSpec.describe Appearance do
       expect(letter).to eq 0
     end
 
-    it 'raises an error if the url is wrong' do
+    it 'raises NoMethodError if the url is wrong' do
       expect do
-        Appearance.new(wrong_web_page).letter_frequency('z')
-      end.to raise_error 'No such file or directory @ rb_sysopen - spec/fixtures/wrong_example.html'
+        fail_url.letter_frequency('z')
+      end.to raise_error(NoMethodError)
     end
   end
 
@@ -62,12 +60,6 @@ RSpec.describe Appearance do
       element = rss.element_frequency('pubDates')
       expect(element).to eq 0
     end
-
-    it 'raises an error if the rss link is wrong' do
-      expect do
-        Appearance.new(wrong_rss_page).element_frequency('dates')
-      end.to raise_error 'No such file or directory @ rb_sysopen - spec/fixtures/wrong_rss_example.html'
-    end
   end
 
   context '.occurrences' do
@@ -76,10 +68,10 @@ RSpec.describe Appearance do
       expect(occurrences).to an_instance_of(Hash)
     end
 
-    it 'raises an error if the web link is wrong' do
+    it 'raises NoMethodError if the url is wrong' do
       expect do
-        Appearance.new(wrong_web_page).occurrences
-      end.to raise_error 'No such file or directory @ rb_sysopen - spec/fixtures/wrong_example.html'
+        fail_url.occurrences
+      end.to raise_error(NoMethodError)
     end
   end
 end

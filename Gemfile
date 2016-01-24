@@ -14,6 +14,9 @@ gem 'figaro'
 ##### JSON generation #####
 gem 'active_model_serializers'
 
+##### Request #####
+gem 'typhoeus'
+
 ##### Coding Style #####
 gem 'brakeman'
 gem 'bullet'

@@ -47,13 +47,25 @@ RSpec.describe CarType, type: :model do
     it { should validate_presence_of :name }
     it { should validate_presence_of :car_type_slug }
     it { should validate_presence_of :base_price }
+
+    # TODO: The shoulda-matchers have an issue when test for uniqueness. This issue fixed for the next release.
+    # Temporary, I'll write spec for test the uniqueness.
+    #
+    # Refer: https://github.com/thoughtbot/shoulda-matchers/issues/880
+    #
+    # it { should validate_uniqueness_of :name }
+    #
+    it 'is invalid with a duplicate name' do
+      create(:car_type, name: 'HE')
+      expect(build(:car_type, name: 'HE').valid?).to be_falsy
+    end
   end
 
   context 'relations' do
     it { should belong_to :car }
   end
 
-  context 'delegations' do
+  context 'pricing_policy' do
     let(:organization) { create(:organization, pricing_policy: 'Flexible') }
     let(:car) { create(:car, organization: organization) }
     let(:car_type) { create(:car_type, car: car) }

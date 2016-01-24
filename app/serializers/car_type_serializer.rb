@@ -13,5 +13,5 @@
 #
 
 class CarTypeSerializer < ActiveModel::Serializer
-  attributes :name, :total_price, :base_price
+  attributes :name, :base_price, :total_price
 end

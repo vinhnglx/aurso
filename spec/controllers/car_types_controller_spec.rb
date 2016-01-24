@@ -68,6 +68,16 @@ RSpec.describe CarTypesController, type: :controller do
           expect(response.status).to eq 201
           expect(res['car_type']['total_price']).to eq 260_004
         end
+
+        it 'raises an error when invalid record' do
+          create(:car_type, name: 'Ferrari')
+
+          post :create, car_slug: car.car_slug, car_type_slug: 'i3920', base_price: 300_000, name: 'Ferrari'
+          res = JSON.parse(response.body)
+
+          expect(response.status).to eq 400
+          expect(res['message']).to eq 'Validation failed: Name has already been taken'
+        end
       end
     end
 
