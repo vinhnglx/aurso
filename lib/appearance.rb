@@ -93,10 +93,7 @@ class Appearance
     #
     # Returns the String
     def inner_word
-      html_content = Rails.cache.fetch('html', expires_in: 1.day) do
-        open(url).read
-      end
-      html = Nokogiri::HTML(html_content)
+      html = Nokogiri::HTML(content(url))
 
       # Remove unnecessary tags
       UNNECESSARY_TAGS.each { |tag| html.css(tag).remove }
@@ -113,10 +110,20 @@ class Appearance
     #
     # Returns Nokogiri::XML object
     def rss_feed
-      xml = Rails.cache.fetch('xml', expires_in: 1.day) do
-        open(url).read
-      end
+      Nokogiri::XML(content(url))
+    end
 
-      Nokogiri::XML(xml)
+    # Private: Make a single request to url and get the body
+    #
+    # url - URL
+    #
+    # Examples
+    #
+    #   content('http://apple.com')
+    #   # => Web Content
+    #
+    # Returns the Web Content object
+    def content(url)
+      Typhoeus.get(url, followlocation: true).body
     end
 end
