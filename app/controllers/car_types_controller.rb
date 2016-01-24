@@ -26,7 +26,7 @@ class CarTypesController < ApplicationController
 
     render json: {
       cars: ActiveModel::ArraySerializer.new(cars, each_serializer: ::CarSerializer)
-    }
+    }, status: :ok
   end
 
   def create
