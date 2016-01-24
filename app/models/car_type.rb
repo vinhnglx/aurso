@@ -81,7 +81,7 @@ class CarType < ActiveRecord::Base
     #
     # Returns the Integer
     def margin(policy)
-      return (Appearance.new(ENV['FLEXIBLE_URL']).letter_frequency('a').to_f) / 100 if policy == 'Flexible'
+      return Appearance.new(ENV['FLEXIBLE_URL']).letter_frequency('a').to_f / 100 if policy == 'Flexible'
       return Appearance.new(ENV['FIXED_URL']).word_frequency('status') if policy == 'Fixed'
       return Appearance.new(ENV['PRESTIGE_URL']).element_frequency('pubDate') if policy == 'Prestige'
     end

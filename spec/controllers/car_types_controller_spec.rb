@@ -70,7 +70,7 @@ RSpec.describe CarTypesController, type: :controller do
         end
 
         it 'raises an error when invalid record' do
-          car_type = create(:car_type, name: 'Ferrari')
+          create(:car_type, name: 'Ferrari')
 
           post :create, car_slug: car.car_slug, car_type_slug: 'i3920', base_price: 300_000, name: 'Ferrari'
           res = JSON.parse(response.body)

@@ -56,7 +56,7 @@ RSpec.describe CarType, type: :model do
     # it { should validate_uniqueness_of :name }
     #
     it 'is invalid with a duplicate name' do
-      car_type = create(:car_type, name: 'HE')
+      create(:car_type, name: 'HE')
       expect(build(:car_type, name: 'HE').valid?).to be_falsy
     end
   end

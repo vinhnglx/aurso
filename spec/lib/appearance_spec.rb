@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Appearance do
-  include_context 'html_contents'
+  include_context 'appearances_contents'
 
   let(:web) { Appearance.new('hello.com') }
   let(:rss) { Appearance.new('rss.com') }
