@@ -139,6 +139,12 @@ PARAMETERS:
 bundle exec rspec spec
 ```
 
+### Coverage
+
+```
+All Files (100.0% covered at 2.17 hits/line)
+```
+
 ### Run the server and enjoy
 
 ```
