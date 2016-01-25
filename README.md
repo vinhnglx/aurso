@@ -10,7 +10,7 @@ Support:
 
 - An API creates new car type.
 
-# HOW TO RUN:
+## HOW TO RUN:
 
 ### Clone the project and setup gem dependencies
 
@@ -144,7 +144,7 @@ bundle exec rspec spec
 bin/rails server
 ```
 
-# NOTE:
+## NOTE:
 
 - This project is built in the short time so some parts needs to be refactored and write more test cases.
 
