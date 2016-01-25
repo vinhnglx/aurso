@@ -28,6 +28,7 @@ bundle install
 
 ```
 cp config/application.yml.sample config/application.yml
+cp config/secrets.yml.sapmle config/secrets.yml
 ```
 
 ```
