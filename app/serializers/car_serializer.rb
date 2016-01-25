@@ -11,7 +11,11 @@
 #
 
 class CarSerializer < ActiveModel::Serializer
-  attributes :name, :car_types
+  attributes :name, :pricing_policy, :car_types
 
   has_many :car_types
+
+  def organization
+    object.organization_name
+  end
 end
