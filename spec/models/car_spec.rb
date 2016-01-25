@@ -43,8 +43,8 @@ RSpec.describe Car, type: :model do
     let(:organization) { create(:organization, pricing_policy: 'Flexible') }
     let(:car) { create(:car, organization: organization) }
 
-    it 'returns the pricing_policy' do
-      expect(car.pricing_policy).to eq('Flexible')
+    it 'returns the organization pricing_policy' do
+      expect(car.pricing_policy).to eq 'Flexible'
     end
   end
 end
